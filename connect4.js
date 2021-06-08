@@ -19,6 +19,8 @@ var board = []; // array of rows, each row is array of cells  (board[y][x])
 
 function makeBoard() {
   // TODO: set "board" to empty HEIGHT x WIDTH matrix array
+  // created a matrix by creating an array for each row and pushed it to the board
+  // each row array contains WIDTH number of null elements and represents the columns
   for (let y = 0; y < HEIGHT; y++) {
     const arr = new Array(WIDTH).fill(null);
     board.push(arr)
@@ -32,6 +34,7 @@ function makeHtmlBoard() {
   let htmlBoard = document.getElementById('board');
    
   // TODO: add comment for this code
+  // Create top row with width num of columns (table cells) and handle click function to insert color into that column
   var top = document.createElement("tr");
   top.setAttribute("id", "column-top");
   top.addEventListener("click", handleClick);
@@ -44,6 +47,7 @@ function makeHtmlBoard() {
   htmlBoard.append(top);
 
   // TODO: add comment for this code
+  //  Creates rows and columns in htmlBorad. Every table cell has unique id to identify.
   for (var y = 0; y < HEIGHT; y++) {
     const row = document.createElement("tr");
     for (var x = 0; x < WIDTH; x++) {
@@ -59,6 +63,9 @@ function makeHtmlBoard() {
 
 
   // TODO: write the real version of this, rather than always returning 0
+  //  Given the x column, this function returns next available empty spot from the bottom.
+  // And if column is full, the return null.
+  // y and x use to specify the table cell id
 function findSpotForCol(x) {
     for (let y = HEIGHT-1; y >= 0; y--) {
       if (board[y][x] == null) {
@@ -72,16 +79,16 @@ function findSpotForCol(x) {
 /** placeInTable: update DOM to place piece into HTML table of board */
 
 function placeInTable(y, x) {
-  // TODO: make a div and insert into correct table cell
+  // TODO: make a div to represent a color piece based on the currPlayer and insert it into correct table cell.
   // y = row, x = column
   const div = document.createElement('div')
   const td = document.getElementById(`${y}-${x}`)
   div.classList.add('piece');
   div.classList.add(`p${currPlayer}`);
 
-    td.append(div)
+  td.append(div)
   
- console.log(x, y)
+  console.log(x, y)
 }
 
 
@@ -96,6 +103,7 @@ function endGame(msg) {
 
 function handleClick(evt) {
   // get x from ID of clicked cell
+  // this x represent column id clicked
   var x = +evt.target.id;
 
   // get next spot in column (if none, ignore click)
@@ -122,12 +130,13 @@ function handleClick(evt) {
    }
   // switch players
   // TODO: switch currPlayer 1 <-> 2
-  if (currPlayer == 1){
-    currPlayer = 2
-  } else if (currPlayer == 2){
-    currPlayer = 1
-  }
+  // if (currPlayer == 1){
+  //   currPlayer = 2
+  // } else if (currPlayer == 2){
+  //   currPlayer = 1
+  // }
 
+  currPlayer = currPlayer == 1 ? 2 : 1 (ternary )
 }
 
 /** checkForWin: check board cell-by-cell for "does a win start here?" */
